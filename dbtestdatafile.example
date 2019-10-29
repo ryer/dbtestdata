@@ -1,0 +1,64 @@
+use strict;
+use warnings;
+use Generator;
+
+##
+# Configuration example.
+##
+
+return {
+    name   => 'example',
+    tables => [
+        {
+            table   => 't_user',
+            count   => 100,
+            columns => { # HASH Notation (Recommended).
+                id       => PRIMARY_KEY(COUNTER(1)),
+                email    => RANDOM_EMAIL(),
+                age      => RANDOM_INT(70, 18),
+                name     => CONCAT(RANDOM_ALPHA(20, 5), ' ', RANDOM_ALPHA(20, 5)),
+                zipcode  => RANDOM_JP_ZIPCODE(),
+                modified => RANDOM_DATETIME("2019-01-01", "2011-12-31"),
+                created  => SQL('NOW()')
+            }
+        },
+        {
+            table   => 't_product',
+            count   => 200,
+            columns => { # HASH Notation (Recommended).
+                product_cd => PRIMARY_KEY(SPRINTF("%03d-%s", COUNTER(200), COUNTER('AAA'))),
+                price      => RANDOM_INT(100000, 1000),
+                modified   => RANDOM_DATETIME("2019-01-01", "2011-12-31"),
+                created    => SQL('NOW()')
+            }
+        },
+        {
+            table   => 't_order',
+            count   => 150,
+            columns => [ # ARRAY Notation to keep order.
+                id         => PRIMARY_KEY(COUNTER(1)),
+                user_id    => FOREIGN_KEY('t_user', FK_ROTATION),
+                product_cd => FOREIGN_KEY('t_product', FK_RANDOM),
+                price      => RANDOM_INT(100000, 1000),
+                modified   => RANDOM_DATETIME("2019-01-01", "2011-12-31"),
+                created    => SQL('NOW()')
+            ]
+        },
+        {
+            table   => 't_review',
+            count   => 30,
+            columns => [ # Fully Notation.
+                { name => "id", generator => PRIMARY_KEY(COUNTER(1)), },
+                { name => "user_id", generator => FOREIGN_KEY('t_user', FK_RANDOM), },
+                { name => "product_cd", generator => FOREIGN_KEY('t_product', FK_RANDOM), },
+                { name => "star", generator => RANDOM_CHOICE(1, 2, 3, 4, 5), },
+                { name => "title", generator => RANDOM_ALPHA(100, 20), },
+                { name => "body", generator => FOLD(30, RANDOM_ALPHA(500, 100)), },
+                { name => "modified", generator => RANDOM_DATETIME("2019-01-01", "2011-12-31"), },
+                { name => "created", generator => SQL('NOW()') },
+            ]
+        }
+    ]
+};
+
+1;
