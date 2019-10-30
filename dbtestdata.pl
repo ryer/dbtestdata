@@ -19,8 +19,8 @@ sub main {
     my $dmlType = $ARGV[0];
 
     #@type DML
-    my $writerClazz = "DML::$dmlType";
-    my @def_options = eval {$writerClazz->def_options()};
+    my $dmlClazz = "DML::$dmlType";
+    my @def_options = eval {$dmlClazz->def_options()};
     if ($@) {
         die "Invalid DMLType [$dmlType].";
     }
@@ -28,8 +28,8 @@ sub main {
     my $options = get_options(@def_options);
     my $config = Configuration->new($options->{'conf'});
 
-    my $writer = $writerClazz->new($options);
-    $writer->write($config, *STDOUT);
+    my $dml = $dmlClazz->new($options);
+    $dml->write($config, *STDOUT);
 
     return 0;
 }

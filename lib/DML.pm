@@ -5,8 +5,8 @@ use warnings;
 use File::Basename;
 
 BEGIN {
-    my $writerDir = dirname(__FILE__) . '/DML';
-    my @files = sort map {m%^(/|\./)% ? $_ : "./$_"} glob("$writerDir/*.pm");
+    my $dmlDir = dirname(__FILE__) . '/DML';
+    my @files = sort map {m%^(/|\./)% ? $_ : "./$_"} glob("$dmlDir/*.pm");
     foreach my $f (@files) {
         if ($f =~ m%/(\w+)\.pm%) {
             eval("use DML::$1;");
