@@ -8,7 +8,7 @@ use File::Basename;
 use lib dirname(__FILE__) . '/lib';
 use Configuration;
 use Generator;
-use Writer;
+use DML;
 use Getopt::Long;
 use IO::Handle;
 binmode STDOUT, ":utf8";
@@ -16,13 +16,13 @@ binmode STDOUT, ":utf8";
 exit main();
 
 sub main {
-    my $dataType = $ARGV[0];
+    my $dmlType = $ARGV[0];
 
-    #@type Writer
-    my $writerClazz = "Writer::$dataType";
+    #@type DML
+    my $writerClazz = "DML::$dmlType";
     my @def_options = eval {$writerClazz->def_options()};
     if ($@) {
-        die "Invalid DataType [$dataType].";
+        die "Invalid DMLType [$dmlType].";
     }
 
     my $options = get_options(@def_options);

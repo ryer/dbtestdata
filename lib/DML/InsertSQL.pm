@@ -1,5 +1,5 @@
-package Writer::InsertSQL;
-use base 'Writer';
+package DML::InsertSQL;
+use base 'DML';
 
 use strict;
 use warnings;
@@ -16,7 +16,7 @@ sub validate_options {
     my ($this) = @_;
 
     if (!exists($this->{'options'}->{'sql-type'})) {
-        $this->{'options'}->{'sql-type'} = 'sql99';
+        $this->{'options'}->{'sql-type'} = 'postgresql';
     }
 
     if ($this->{'options'}->{'commit-per-count'}) {

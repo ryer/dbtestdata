@@ -1,14 +1,14 @@
 # dbtestdata
 
-Generate mock data.
+モックデータを生成します。
 
-Designed for RDB.
+RDB用に設計されています。
 
 # INSTALL
 
-Please checkout before use.
+チェックアウトしてください。
 
-And use simple system standard perl.
+システム標準perlで動作します。
 
 # USAGE
 
@@ -17,17 +17,17 @@ And use simple system standard perl.
     $ perl dbtestdata.pl UpdateSQL --conf=dbtestdatafile.example --commit-per-count=500
 
 * DMLType : 'InsertSQL' or 'UpdateSQL'.
-* --conf=FILEPATH : Configuration file. (DEFAULT: 'dbtestdatafile')
-* --rand-seed=N : Seed can later be used to reproduce the same results.
-* --sql-type=TYPE : 'mysql' and 'postgresql' is now available. (DEFAULT: 'postgresql')
-* --commit-per-table : Surround per table with BEGIN and COMMIT.
-* --commit-per-count=N : Surround every N records.
+* --conf=FILEPATH : 設定ファイル。 (DEFAULT: 'dbtestdatafile')
+* --rand-seed=N : 設定しておくと出力内容がいつも同じになります。
+* --sql-type=TYPE : 'mysql' と 'postgresql' が使えます。 (DEFAULT: 'postgresql')
+* --commit-per-table : テーブル単位にBEGINとCOMMITで囲みます。
+* --commit-per-count=N : Nレコードごとに囲みます。
 
 # Configuration file
 
-The standard perl script.
+標準的なperlスクリプトです。
 
-Should return HASH structure like below.
+以下のようなHASHデータ構造を返す必要があります。
 
     {
       name => 'This configuration name',
@@ -47,11 +47,11 @@ Should return HASH structure like below.
       ]
     }
 
-See dbtestdatafile.example.
+dbtestdatafile.example を参照。
 
 # GENERATOR FUNCTION
 
-See GENERATOR.md
+GENERATOR.md を参照。
 
 # LIMITATIONS
 

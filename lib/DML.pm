@@ -1,15 +1,15 @@
-package Writer;
+package DML;
 
 use strict;
 use warnings;
 use File::Basename;
 
 BEGIN {
-    my $writerDir = dirname(__FILE__) . '/Writer';
+    my $writerDir = dirname(__FILE__) . '/DML';
     my @files = sort map {m%^(/|\./)% ? $_ : "./$_"} glob("$writerDir/*.pm");
     foreach my $f (@files) {
         if ($f =~ m%/(\w+)\.pm%) {
-            eval("use Writer::$1;");
+            eval("use DML::$1;");
         }
     }
 }

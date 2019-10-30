@@ -12,7 +12,7 @@ return {
         {
             table   => 't_user',
             count   => 100,
-            columns => { # HASH Notation (Recommended).
+            columns => { # Simple HASH Notation (Recommended).
                 id       => PRIMARY_KEY(COUNTER(1)),
                 email    => RANDOM_EMAIL(),
                 age      => RANDOM_INT(70, 18),
@@ -25,7 +25,7 @@ return {
         {
             table   => 't_product',
             count   => 200,
-            columns => { # HASH Notation (Recommended).
+            columns => { # Simple HASH Notation (Recommended).
                 product_cd => PRIMARY_KEY(SPRINTF("%03d-%s", COUNTER(200), COUNTER('AAA'))),
                 price      => RANDOM_INT(100000, 1000),
                 modified   => RANDOM_DATETIME("2019-01-01", "2011-12-31"),
