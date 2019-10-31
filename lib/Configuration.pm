@@ -25,6 +25,12 @@ sub name {
     return $this->{'configuration'}->{'name'};
 }
 
+sub options {
+    my ($this) = @_;
+
+    return %{$this->{'configuration'}->{'options'}};
+}
+
 sub tables {
     my ($this) = @_;
 
@@ -35,6 +41,12 @@ sub _validate {
     my ($configuration) = @_;
 
     $configuration->{'name'} || die "Invalid configuration [name missing].";
+
+    if ($configuration->{'options'}) {
+        if (ref($configuration->{'options'}) ne 'HASH') {
+            die "Invalid configuration [options expects HashRef].";
+        }
+    }
 
     if (ref($configuration->{'tables'} ne 'ARRAY')) {
         die "Invalid configuration [tables expects ArrayRef].";

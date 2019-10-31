@@ -13,13 +13,13 @@ RDB用に設計されています。
 # USAGE
 
     $ perl dbtestdata.pl DMLType [options]
-    $ perl dbtestdata.pl InsertSQL --sql-type=mysql
+    $ perl dbtestdata.pl InsertSQL --driver=mysql
     $ perl dbtestdata.pl UpdateSQL --conf=dbtestdatafile.example --commit-per-count=500
 
 * DMLType : 'InsertSQL' or 'UpdateSQL'.
 * --conf=FILEPATH : 設定ファイル。 (DEFAULT: 'dbtestdatafile')
-* --rand-seed=N : 設定しておくと出力内容がいつも同じになります。
-* --sql-type=TYPE : 'mysql' と 'postgresql' が使えます。 (DEFAULT: 'postgresql')
+* --rand-seed=N : 設定しておくといつも同じ出力内容が出力されます。
+* --driver=TYPE : 'mysql' と 'postgresql' が使えます。 (DEFAULT: 'postgresql')
 * --commit-per-table : テーブル単位にBEGINとCOMMITで囲みます。
 * --commit-per-count=N : Nレコードごとに囲みます。
 

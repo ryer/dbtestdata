@@ -13,13 +13,13 @@ And use simple system standard perl.
 # USAGE
 
     $ perl dbtestdata.pl DMLType [options]
-    $ perl dbtestdata.pl InsertSQL --sql-type=mysql
+    $ perl dbtestdata.pl InsertSQL --driver=mysql
     $ perl dbtestdata.pl UpdateSQL --conf=dbtestdatafile.example --commit-per-count=500
 
 * DMLType : 'InsertSQL' or 'UpdateSQL'.
 * --conf=FILEPATH : Configuration file. (DEFAULT: 'dbtestdatafile')
 * --rand-seed=N : Seed can later be used to reproduce the same results.
-* --sql-type=TYPE : 'mysql' and 'postgresql' is now available. (DEFAULT: 'postgresql')
+* --driver=TYPE : 'mysql' and 'postgresql' is now available. (DEFAULT: 'postgresql')
 * --commit-per-table : Surround per table with BEGIN and COMMIT.
 * --commit-per-count=N : Surround every N records.
 
@@ -31,6 +31,9 @@ Should return HASH structure like below.
 
     {
       name => 'This configuration name',
+      options => {
+        'commit-per-table' => 1
+      },
       tables => [
         {
           table   => 'table_name_1'

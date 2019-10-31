@@ -28,6 +28,10 @@ sub main {
     my $options = get_options(@def_options);
     my $config = Configuration->new($options->{'conf'});
 
+    while (my ($opt, $val) = each($config->options($options))) {
+        $options->{$opt} = $val;
+    }
+
     my $dml = $dmlClazz->new($options);
     $dml->write($config, *STDOUT);
 

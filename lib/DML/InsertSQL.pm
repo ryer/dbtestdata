@@ -4,26 +4,6 @@ use base 'DML';
 use strict;
 use warnings;
 
-sub def_options {
-    return(
-        "sql-type:s",
-        "commit-per-table",
-        "commit-per-count:i"
-    );
-}
-
-sub validate_options {
-    my ($this) = @_;
-
-    if (!exists($this->{'options'}->{'sql-type'})) {
-        $this->{'options'}->{'sql-type'} = 'postgresql';
-    }
-
-    if ($this->{'options'}->{'commit-per-count'}) {
-        $this->{'options'}->{'commit-per-table'} = 1;
-    }
-}
-
 sub write {
     my (
         $this,
@@ -77,41 +57,18 @@ sub _generate {
             push(@values, $generator->{'gen'}->($table, $col->{'name'}));
         }
         else {
-            push(@values, $this->_escapeValue($generator->{'gen'}->($table, $col->{'name'})));
+            push(@values, $this->escapeValue($generator->{'gen'}->($table, $col->{'name'})));
         }
     }
 
     my $sql = '';
-    $sql .= "INSERT INTO " . $this->_escapeRsv($table) . " (";
-    $sql .= join(",", map {$this->_escapeRsv($_)} @cols);
+    $sql .= "INSERT INTO " . $this->escapeRsv($table) . " (";
+    $sql .= join(",", map {$this->escapeRsv($_)} @cols);
     $sql .= ') VALUES (';
     $sql .= join(',', @values);
     $sql .= ');';
 
     return $sql;
-}
-
-sub _escapeRsv {
-    my ($this, $rsv) = @_;
-
-    if ($this->option('sql-type') eq 'mysql') {
-        return "`$rsv`";
-    }
-    else {
-        return "\"$rsv\"";
-    }
-}
-
-sub _escapeValue {
-    # s/$this/undef/ : Suppress warning in IDEA
-    my (undef, $value) = @_;
-
-    if ($value !~ m/^[0-9]+$/s) {
-        $value =~ s/\'/\'\'/gs;
-        $value = "'$value'";
-    }
-
-    return $value;
 }
 
 1;

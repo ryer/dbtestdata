@@ -7,8 +7,11 @@ use Generator;
 ##
 
 return {
-    name   => 'example',
-    tables => [
+    name    => 'example',
+    options => {
+        'commit-per-table' => 1
+    },
+    tables  => [
         {
             table   => 't_user',
             count   => 100,
