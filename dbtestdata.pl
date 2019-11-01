@@ -16,7 +16,7 @@ binmode STDOUT, ":utf8";
 exit main();
 
 sub main {
-    my $dmlType = $ARGV[0];
+    my $dmlType = $ARGV[0] || die 'DMLType missing.';
 
     #@type DML
     my $dmlClazz = "DML::$dmlType";
@@ -27,10 +27,10 @@ sub main {
 
     my $options = get_options(@def_options);
     my $config = Configuration->new($options->{'conf'});
-
-    while (my ($opt, $val) = each($config->options($options))) {
+    $config->options_each(sub {
+        my ($opt, $val) = @_;
         $options->{$opt} = $val;
-    }
+    });
 
     my $dml = $dmlClazz->new($options);
     $dml->write($config, *STDOUT);

@@ -31,10 +31,29 @@ sub options {
     return %{$this->{'configuration'}->{'options'}};
 }
 
+sub options_each {
+    my ($this, $f) = @_;
+
+    while (my ($opt, $val) = each($this->{'configuration'}->{'options'})) {
+        $f->($opt, $val);
+    }
+}
+
 sub tables {
     my ($this) = @_;
 
     return @{$this->{'configuration'}->{'tables'}};
+}
+
+sub tables_each {
+    my ($this, $f) = @_;
+
+    my $len = scalar @{$this->{'configuration'}->{'tables'}};
+    for (my $i = 0; $i < $len; ++$i) {
+        my $it = $this->{'configuration'}->{'tables'}->[$i];
+        my ($table, $count, $generators) = ($it->{'table'}, $it->{'count'}, $it->{'generators'});
+        $f->($table, $count, $generators, $i);
+    }
 }
 
 sub _validate {
@@ -42,6 +61,7 @@ sub _validate {
 
     $configuration->{'name'} || die "Invalid configuration [name missing].";
 
+    $configuration->{'options'} ||= {};
     if ($configuration->{'options'}) {
         if (ref($configuration->{'options'}) ne 'HASH') {
             die "Invalid configuration [options expects HashRef].";

@@ -15,8 +15,8 @@ sub write {
 
     $output->print("BEGIN;\n");
 
-    foreach my $it ($config->tables()) {
-        my ($table, $count, $generators) = ($it->{'table'}, $it->{'count'}, $it->{'generators'});
+    $config->tables_each(sub {
+        my ($table, $count, $generators) = @_;
 
         my $current = 0;
         while ($current < $count) {
@@ -39,7 +39,7 @@ sub write {
             $output->print("COMMIT;\n");
             $output->print("BEGIN;\n");
         }
-    }
+    });
 
     $output->print("COMMIT;\n");
 }

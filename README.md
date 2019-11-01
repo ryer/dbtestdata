@@ -12,7 +12,7 @@ And use simple system standard perl.
 
 # USAGE
 
-    $ perl dbtestdata.pl DMLType [options]
+    $ perl dbtestdata.pl <DMLType> [options]
     $ perl dbtestdata.pl InsertSQL --driver=mysql
     $ perl dbtestdata.pl UpdateSQL --conf=dbtestdatafile.example --commit-per-count=500
 
