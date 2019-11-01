@@ -25,24 +25,12 @@ sub name {
     return $this->{'configuration'}->{'name'};
 }
 
-sub options {
-    my ($this) = @_;
-
-    return %{$this->{'configuration'}->{'options'}};
-}
-
 sub options_each {
     my ($this, $f) = @_;
 
     while (my ($opt, $val) = each($this->{'configuration'}->{'options'})) {
         $f->($opt, $val);
     }
-}
-
-sub tables {
-    my ($this) = @_;
-
-    return @{$this->{'configuration'}->{'tables'}};
 }
 
 sub tables_each {
